@@ -7,6 +7,7 @@ View a working version here: http://antongerdelan.net/3dmodelviewer/
 instructions for adding a model
 ===============================
 * convert your mesh into .json format. you can use my converter tool to convert .obj to .json
+ * grab it here https://github.com/capnramses/.obj-to-.json-converter
  * .obj mesh must be triangles, not quads
  * .obj mesh must have positions, texture coordinates, and normals
 * create 2 thumbnails (I used 1 colour, and 1 greyscale of 32x32 pixel size)
