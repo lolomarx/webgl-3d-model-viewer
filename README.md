@@ -24,3 +24,8 @@ customise
 * edit the .css file to change the colours and fonts
 * the layout is just an HTML table in index.html
 * the shaders are loaded from files ending in .glsl. the lighting is in there
+
+current limitations/future extensions
+=====================================
+* it should be quite easy to add support for specular maps
+* I'll add something to play animations in the near future
