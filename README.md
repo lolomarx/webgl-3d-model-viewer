@@ -13,3 +13,8 @@ instructions for adding a model
 * create a new description file in modelsmeta/
 * add the name of the description file to modelsmetalist.json
 * to add a new thumbnail tab to the web page, open up index.html and add a new img element to the end block at lines 14-18. "thumb6." next time "thumb7".
+
+customise
+=========
+* edit the .css file to change the colours and fonts
+* the layout is just an HTML table in index.html
