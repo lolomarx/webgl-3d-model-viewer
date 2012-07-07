@@ -18,3 +18,4 @@ customise
 =========
 * edit the .css file to change the colours and fonts
 * the layout is just an HTML table in index.html
+* the shaders are loaded from files ending in .glsl. the lighting is in there
