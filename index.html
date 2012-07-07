@@ -1,0 +1,195 @@
+<html>
+<head>
+<title>Anton's 3D Models</title>
+<link rel=stylesheet type="text/css" href="viewerstyle.css">
+</head>
+<body onload="main();">
+<h1>Anton's 3D Models</h1>
+
+<p>
+<small><a href="http://antongerdelan.net/">[home]</a></small><br />
+</p>
+
+<!-- tiny thumbnails selection area -->
+<img id="thumb0" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+<img id="thumb1" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+<img id="thumb2" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+<img id="thumb3" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+<img id="thumb4" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+<img id="thumb5" onmouseover="mouseOverImage(this)" onclick="mouseClickImage(this)" src="thumbsgrey/default.png">
+
+<table width="800" cellspacing="10">
+<tr>
+<td>
+<!-- mesh name -->
+<b id="meshname">dungeon door</b><br />
+<!-- viewer pane -->
+<canvas id="glcanvas" width="512" height="512">Your browser does not support HTML5</canvas>
+</canvas>
+<p align="right">
+<small><small id="fps">x</small> Hz</small></p>
+</td>
+<td>
+<!-- additional screenshot -->
+<img id="screenshotA" src="images/default.png"><br />
+<img id="screenshotB" src="images/default.png">
+</td>
+</tr>
+<tr valign="top">
+<td>
+<!-- description text -->
+<i id="descriptiontext">
+Pillars give the illusion of there being a ceiling. They are also
+an active prop. When Crongdor gets the huge hammer he can whack
+them down. They can also be knocked over by a boulder. This causes
+the whole screen to shake and debris to fall down all around the
+place. The pillar falls into a 2-tile gap and stops, forming an
+artificial bridge. The model breaks into segments during the
+animation - this meant that I had to model the tops and bottoms of
+each pillar segment, which more or less doubled the number of
+triangles used in the model.
+</i>
+</td>
+<td>
+<!-- extracted stats -->
+<table>
+<tr>
+<td><b>vertices</b></td><td><tt id="vertexcount">x</tt></td>
+</tr>
+<tr>
+<td><b>triangles</b></td><td><tt id="trianglecount">x</tt></td>
+</tr>
+<tr>
+<td><b>materials</b></td><td><tt id="materials">x</tt></td>
+</tr>
+<tr>
+<td><b>armature</b></td><td><tt id="armature">x</tt> </td>
+</tr>
+<tr>
+<td><b>animations</b></td><td><tt id="animations">x</tt></td>
+</tr>
+<tr>
+<td><b>effects</b></td><td><tt id="effects">x</tt></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+
+<!-- some includes -->
+<script type="text/javascript" src="webgl-utils.js"></script> <!-- include initialisation helper -->
+<script type="text/javascript" src="webgl-debug.js"></script> <!-- include debugging helper (prints to javascript console) -->
+<script type="text/javascript" src="initGL.js"></script> <!-- start gfx -->
+<script type="text/javascript" src="drawScene.js"></script> <!-- draw gfx -->
+<script type="text/javascript" src="gl-matrix.js"></script>  <!-- maths helper -->
+<script type="text/javascript" src="Camera.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="Renderable.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="Settings.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="timer.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="mainLoop.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="ShaderProgramme.js"></script>  <!-- virtual camera -->
+<script type="text/javascript" src="modelswitcher.js"></script>  <!-- load list -->
+
+<!-- main execution thread starts here -->
+<script type="text/javascript">
+// globals
+var gl;
+var gSettings;
+var gCam;
+var gGraphicsStarted = false;
+var gFrameTimer;
+var gFrameCounterSeconds = 0.0;
+var gFrameCount = 0;
+var gTimeStepAccumSeconds = 0.0;
+var gTimeStepSizeSeconds = 0.1;
+var gCurrentMesh;
+var gDebugGeomShader;
+var gDebugGeomShader_modelmat_loc;
+var gDebugGeomShader_diffusemap_loc;
+var gDebugGeomShader_viewmat_loc;
+
+var gModelMat;
+
+function main() {
+	// get handle to the HTML5 canvas that we made
+	var canvas = document.getElementById ("glcanvas");
+	// load settings from file
+	gSettings = new Settings();
+	gSettings.loadFromFile ("glsettings.json");
+	// start gl
+	gl = initGL (canvas, gSettings.mDebugging, gSettings.mWithLogging);
+	// validate
+	if (!gl) {
+		alert("failed to start GL");
+		return;
+	}
+	// allow sliders and forms to affect graphics now
+	gGraphicsStarted = true;
+	// create camera
+	gCam = new Camera (45, 512 / 512, 0.1, 100, [0, 2, 5], [0, 1.5, 0]);
+	gl.clearColor (gSettings.mBackgroundColour.r, gSettings.mBackgroundColour.g, gSettings.mBackgroundColour.b, 1.0);
+	// load shaders
+	// load shaders
+	gDebugGeomShader = new ShaderProgramme ();
+	if (!gDebugGeomShader.loadVertexShaderFromURL ("debug_geom_vs.glsl", false)) {
+		alert ("VS error");
+	}
+	if (!gDebugGeomShader.loadFragmentShaderFromURL ("debug_geom_fs.glsl", false)) {
+		alert ("FS error");
+	}
+	gDebugGeomShader.link ();
+	gDebugGeomShader.use ();
+	var gDebugGeomShader_projmat_loc = gDebugGeomShader.getUniformLocation ("projmat");
+	gDebugGeomShader.setUniformMat4ByLocation (gDebugGeomShader_projmat_loc, gCam.mProjMat);
+	gDebugGeomShader_viewmat_loc = gDebugGeomShader.getUniformLocation ("viewmat");
+	gDebugGeomShader.setUniformMat4ByLocation (gDebugGeomShader_viewmat_loc, gCam.mViewMat);
+	gDebugGeomShader_modelmat_loc = gDebugGeomShader.getUniformLocation ("modelmat");
+	
+	// load meta data
+	loadModelMetaDataList ("modelsmetalist.js");
+	
+	// load the default mesh
+	gCurrentMesh = new Renderable ();
+	//gCurrentMesh.loadMeshFromJSON ("meshes/dungeondoor.json");
+	gModelMat = mat4.create ();
+	gModelMat = mat4.identity (gModelMat);
+	//modelmat = mat4.scale (modelmat, [.25, .25, .25]);
+	
+	// load default model using the same method as user selection
+	mouseClickImage (document.getElementById ("thumb0"));
+	
+	// load default texture
+	/*var defaultTexture = gl.createTexture();
+	defaultTexture.image = new Image(); // NOTE REALLY?????????????**********
+	defaultTexture.image.onload = function() {
+		gl.bindTexture(gl.TEXTURE_2D, defaultTexture);
+		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, defaultTexture.image);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); // bi-linear filtering
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); // tri-linear filtering
+	//	glContext.bindTexture(glContext.TEXTURE_2D, null); // unbind -- this was screwing me up
+	}
+	defaultTexture.image.src = "meshes/dungeondoor.png";
+	gCurrentMesh.mDiffuseMapIdx = defaultTexture;*/
+	
+	gDebugGeomShader.setUniformMat4ByLocation (gDebugGeomShader_modelmat_loc, gModelMat);
+	// set up shader
+	gDebugGeomShader.mHasVPAttrib = true;
+	gDebugGeomShader.mHasVTAttrib = true;
+	gDebugGeomShader.mHasVNAttrib = true;
+	gDebugGeomShader.mHasDiffuseMapUniform = true;
+	gDebugGeomShader.mVPAttribLoc = gDebugGeomShader.getAttributeLocation ("vp_loc");
+	gDebugGeomShader.mVTAttribLoc = gDebugGeomShader.getAttributeLocation ("vt");
+	gDebugGeomShader.mVNAttribLoc = gDebugGeomShader.getAttributeLocation ("vn_loc");
+	gDebugGeomShader_diffusemap_loc = gDebugGeomShader.getUniformLocation ("diffuse_map");
+	
+	// enable some modes
+	gl.enable (gl.DEPTH_TEST);
+	
+	//  main loop
+	startMainLoop ();
+}
+</script>

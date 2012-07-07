@@ -1,0 +1,13 @@
+{
+	"mName" : "pillar",
+	"mThumbFile" : "thumbs/pillar.png",
+	"mGreyThumbFile" : "thumbsgrey/pillar.png",
+	"mMeshFile" : "meshes/pillar.json",
+	"mDiffuseMapFile" : "meshes/pillar.png",
+	"mDescription" : "Pillars give the illusion of there being a ceiling. They are also an active prop. When Crongdor gets the huge hammer he can whack them down. They can also be knocked over by a boulder. This causes the whole screen to shake and debris to fall down all around the place. The pillar falls into a 2-tile gap and stops, forming an artificial bridge. The model breaks into segments during the animation - this meant that I had to model the tops and bottoms of each pillar segment, which more or less doubled the number of triangles used in the model. ",
+	"mScreenShotAFile" : "images/pillar_256.png",
+	"mScreenShotBFile" : "images/default.png",
+	"mCamPos" : [0, 5, 8],
+	"mCamLookAt": [0, 2, 0],
+	"mRotateSpeed" : 1.0
+}

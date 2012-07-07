@@ -1,0 +1,13 @@
+{
+	"mName" : "dungeon door",
+	"mThumbFile" : "thumbs/door.png",
+	"mGreyThumbFile" : "thumbsgrey/door.png",
+	"mDescription" : "I couldn't quite decide if doors in the game should ever be opened the conventional way, or if the barbarian would break them all off their hinges. A big wooden door opened slowly would be an excuse for a nice creaky sound effect however. The action in Crongdor is largery based around rooms, so the doors symbolise a transition to the next scene. I went for a gothic looking door somewhat inspired by the HeroQuest board game. There's not a lot of detail in the geometry so the masonry is drawn on rather than sculpted. Because of the overhead view of the game you never really get a clear view of the door face which is a shame but perhaps a door-breaking animation could change this! I didn't bother making any wall above the door frame so that it's easier to see the door in the game. This seems to work quite well. The game's MiP-mapping made the door look a little blurry because of the angle to the camera, so I tweaked the game engine to use beter an-isotropic filtering for the doors.",
+	"mMeshFile" : "meshes/dungeondoor.json",
+	"mDiffuseMapFile" : "meshes/dungeondoor.png",
+	"mScreenShotAFile" : "images/door_256.png",
+	"mScreenShotBFile" : "images/default.png",
+	"mCamPos" : [0, 2, 8],
+	"mCamLookAt": [0, 1.5, 0],
+	"mRotateSpeed" : 1.0
+}

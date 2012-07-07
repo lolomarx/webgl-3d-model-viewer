@@ -1,0 +1,13 @@
+{
+	"mName" : "dungeon bridge",
+	"mThumbFile" : "thumbs/bridge.png",
+	"mGreyThumbFile" : "thumbsgrey/bridge.png",
+	"mMeshFile" : "meshes/bridge.json",
+	"mDiffuseMapFile" : "meshes/bridge.png",
+	"mDescription" : "After building water into the Crongdor game I needed a way to get across. The game is based on repeating square/cubic tiles so the bridge had to be made out of square-ish sections. The game has an overhead view, and is supposed to run on very low-end machines, so I was able to remove all of the faces of the bridge on the underside that would never be seen. The game has a cartoony style - most of the graphics are actually 2D cartoon-ish sprites so I went for a very basic texture with big black outlines on all of the edges. Sometimes the bridge is going to be either above the player or close to the camera and obscuring the environment below so I left plenty of big dodgy-looking gaps in it. My thinking is that if there are several levels of bridge-like things in the scene then it will give a nice parallax effect and make the game look more 3D than 2D (add some depth to the scene basically). The second image shows the bridge in the game. Three of the bridge models are linked together here to form the bridge. ",
+	"mScreenShotAFile" : "images/bridge_256.png",
+	"mScreenShotBFile" : "images/default.png",
+	"mCamPos" : [0, 3, 3],
+	"mCamLookAt": [0, 0, 0],
+	"mRotateSpeed" : 1.0
+}

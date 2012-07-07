@@ -1,0 +1,13 @@
+{
+	"mName" : "dungeon stairs",
+	"mThumbFile" : "thumbs/stairs.png",
+	"mGreyThumbFile" : "thumbsgrey/stairs.png",
+	"mMeshFile" : "meshes/upstairs.json",
+	"mDiffuseMapFile" : "meshes/downstairs.png",
+	"mDescription" : "I needed a way to transition between levels in Crongdor so I made a couple of stairs tiles. There are actually two models here; a set of stairs down that descends with some extra geometry to make them sit flush with surrounding floor tiles, and the same winding stairs without the encasing walls so that the user can see what they are from the overhead view. The stairs looked too small compared to the characters when taking up a single tile so I expanded them to a special 2x2 size. I drew a cartoony texture and bump-mapped it to make the cracks and grooves appear more cracky and groovy but I think this has broken the cartoony style, and also makes it look a bit too 'busy', rather than clearly defined, so I might go back and redraw it. ",
+	"mScreenShotAFile" : "images/stairs_256.png",
+	"mScreenShotBFile" : "images/stairsB_256.png",
+	"mCamPos" : [0, 12, 8],
+	"mCamLookAt": [0, 4, 0],
+	"mRotateSpeed" : 1.0
+}

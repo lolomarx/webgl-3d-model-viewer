@@ -1,0 +1,13 @@
+{
+	"mName" : "date palm",
+	"mThumbFile" : "thumbs/palmtree.png",
+	"mGreyThumbFile" : "thumbsgrey/palmtree.png",
+	"mMeshFile" : "meshes/palmtree.json",
+	"mDiffuseMapFile" : "meshes/palmtree.png",
+	"mDescription" : "I was making a level for the Crongdor game with a theme inspired by ancient Assyria. I had sandy-coloured buildings, and some bad guys already. Date palms appear in lots of Assyrian art so I based my 3D model on their art style. In the game they are extremely tall and the leaves obscure a lot of the game area which creates a nice parallax depth feeling. I was thinking about being able to knock them down to create ramps.",
+	"mScreenShotAFile" : "images/assyrian-heads.png",
+	"mScreenShotBFile" : "images/default.png",
+	"mCamPos" : [0, 11, 7],
+	"mCamLookAt": [0, 5, 0],
+	"mRotateSpeed" : 1.0
+}

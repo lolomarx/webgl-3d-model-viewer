@@ -1,0 +1,13 @@
+{
+	"mName" : "amphora",
+	"mThumbFile" : "thumbs/amphora.png",
+	"mGreyThumbFile" : "thumbsgrey/amphora.png",
+	"mMeshFile" : "meshes/amphora.json",
+	"mDiffuseMapFile" : "meshes/amphora.png",
+	"mDescription" : "The amphora has 3 purposes - background clutter, containing loot, and being thrown as an improvised weapon (of course). Because it can be placed in a variety of poses and also thrown it is going to be seen from different angles. Therefore I couldn't cut out any back-facing polygons, and it had to look okay from all sides. It's brightly coloured to contrast with the background. The arms of the amphora use up quite a lot of polygons (bendy things are a pain to model cheaply), but the torch illumination looks nice on the different faces as the hero moves around. ",
+	"mScreenShotAFile" : "images/amphorae_256.png",
+	"mScreenShotBFile" : "images/amphoraeB_256.png",
+	"mCamPos" : [0, 1.5, 2.5],
+	"mCamLookAt": [0, 0.5, 0],
+	"mRotateSpeed" : 1.0
+}

@@ -1,0 +1,22 @@
+HTML { margin-left: 0px; width:800px; font-family: sans-serif; color: #000000; font-size: 12pt; }
+H1 { font-size: 18pt; }
+H2 { font-size: 16pt; }
+H3 { font-size: 14pt; color: #ff950e; }
+P { color: #333333; font-size: 10pt; }
+orange { color: #ff950e; }
+green { color: #00ff00; }
+TT { color: #ff950e; font-size: 10pt; }
+P.small { font-size: 10pt; }
+P.verysmall { font-size: 9pt; }
+highlight { color: #ff950e; }
+OL { font-size: 10pt; }
+UL { font-size: 10pt; }
+A { color: #ff950e; }
+TD { font-size: 8pt; }
+TABLE.publications { font-size: 10pt; }
+#footer { font-size:10; }
+:link img { border: none; }
+:visited img { border: none; }
+:active img { border: none; }
+:hover img { border: none; }
+textarea { font-family: monospace; background-color:#666666; color: #ff8000; font-size: 9pt; }
